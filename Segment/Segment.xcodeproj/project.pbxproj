@@ -15,6 +15,7 @@
 		1F4E6F1B1C03FAD4003FB306 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F4E6F191C03FAD4003FB306 /* LaunchScreen.storyboard */; };
 		1F4E6F261C03FAD4003FB306 /* SegmentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4E6F251C03FAD4003FB306 /* SegmentTests.m */; };
 		1F4E6F311C03FAD4003FB306 /* SegmentUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4E6F301C03FAD4003FB306 /* SegmentUITests.m */; };
+		1F4E6F441C04102E003FB306 /* SegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4E6F431C04102E003FB306 /* SegmentView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,8 @@
 		1F4E6F2C1C03FAD4003FB306 /* SegmentUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SegmentUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F4E6F301C03FAD4003FB306 /* SegmentUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SegmentUITests.m; sourceTree = "<group>"; };
 		1F4E6F321C03FAD4003FB306 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1F4E6F421C04102E003FB306 /* SegmentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SegmentView.h; sourceTree = "<group>"; };
+		1F4E6F431C04102E003FB306 /* SegmentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SegmentView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +104,7 @@
 		1F4E6F0A1C03FAD4003FB306 /* Segment */ = {
 			isa = PBXGroup;
 			children = (
+				1F4E6F3E1C03FB15003FB306 /* Segment */,
 				1F4E6F0E1C03FAD4003FB306 /* AppDelegate.h */,
 				1F4E6F0F1C03FAD4003FB306 /* AppDelegate.m */,
 				1F4E6F111C03FAD4003FB306 /* ViewController.h */,
@@ -138,6 +142,15 @@
 				1F4E6F321C03FAD4003FB306 /* Info.plist */,
 			);
 			path = SegmentUITests;
+			sourceTree = "<group>";
+		};
+		1F4E6F3E1C03FB15003FB306 /* Segment */ = {
+			isa = PBXGroup;
+			children = (
+				1F4E6F421C04102E003FB306 /* SegmentView.h */,
+				1F4E6F431C04102E003FB306 /* SegmentView.m */,
+			);
+			path = Segment;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -270,6 +283,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F4E6F441C04102E003FB306 /* SegmentView.m in Sources */,
 				1F4E6F131C03FAD4003FB306 /* ViewController.m in Sources */,
 				1F4E6F101C03FAD4003FB306 /* AppDelegate.m in Sources */,
 				1F4E6F0D1C03FAD4003FB306 /* main.m in Sources */,

@@ -7,8 +7,11 @@
 //
 
 #import "ViewController.h"
+#import "SegmentView.h"
 
 @interface ViewController ()
+
+@property (nonatomic,strong) SegmentView *segment;
 
 @end
 
@@ -16,12 +19,31 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    
+    [self.view addSubview:self.segment];
+    
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (SegmentView *)segment{
+    if (!_segment) {
+        
+        NSArray *titles = @[@"年",@"月",@"日",@"天",@"秒"];
+        _segment = [[SegmentView alloc] initWithTitles:titles];
+//        _segment.frame = CGRectMake(0, 50, [UIScreen mainScreen].bounds.size.width, 50);
+//        _segment.showBottomView = NO;
+        _segment.selectedIndex = 1 < titles.count ? 1 : 0;
+    }
+    return _segment;
 }
+
+- (void)viewWillLayoutSubviews{
+    [super viewWillLayoutSubviews];
+    
+    self.segment.frame = CGRectMake(0, 50, [UIScreen mainScreen].bounds.size.width, 50);
+    
+}
+
+
+
 
 @end
