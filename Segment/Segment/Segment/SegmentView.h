@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@class SegmentView;
+@protocol SegmentViewDelegate <NSObject>
+
+@optional
+- (void)segmentView:(SegmentView *)segmentView DidClickedSegmentButton:(UIButton *)segmentButton;
+
+@end
+
 @interface SegmentView : UIView
 
 @property (nonatomic,strong) NSArray *titles; /**< 分段选择按钮文字数组*/
@@ -16,14 +24,24 @@
 
 @property (nonatomic,assign) BOOL showBottomView; /**< 时候显示底部分割线*/
 
+@property (nonatomic,assign) NSInteger bottomLineHeight; /**< 线高*/
+
+@property (nonatomic,strong) UIColor *normalTitleColor; /**< 正常的文字颜色*/
+
+@property (nonatomic,strong) UIColor *selectedTitleColor; /**< 选中的文字颜色*/
+
+@property (nonatomic,strong) UIColor *bottomViewColor; /**< 底部分割线颜色*/
+
+@property (nonatomic,strong) UIColor *moveViewColor ;  /**< 移动横线颜色*/
+
+@property (nonatomic,assign) BOOL isSameTextWidth; /**< 移动横线是否和文字长度一样*/
 
 
-
-
-
-
+@property (nonatomic,weak) id<SegmentViewDelegate> delegate;
 
 - (instancetype)initWithTitles:(NSArray *)titles;
+
+
 
 //- (instancetype)initWithFrame:(CGRect)frame WithTitles:(NSArray *)titles;
 

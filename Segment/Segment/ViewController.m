@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import "SegmentView.h"
 
-@interface ViewController ()
+@interface ViewController ()<SegmentViewDelegate>
 
 @property (nonatomic,strong) SegmentView *segment;
 
@@ -27,13 +27,19 @@
 - (SegmentView *)segment{
     if (!_segment) {
         
-        NSArray *titles = @[@"年",@"月",@"日",@"天",@"秒"];
+        NSArray *titles = @[@"年",@"月",@"日111",@"天",@"秒"];
         _segment = [[SegmentView alloc] initWithTitles:titles];
-//        _segment.frame = CGRectMake(0, 50, [UIScreen mainScreen].bounds.size.width, 50);
 //        _segment.showBottomView = NO;
-        _segment.selectedIndex = 1 < titles.count ? 1 : 0;
+        _segment.selectedIndex = 2 < titles.count ? 2 : 0;  /**< 注意前后的数值要相同*/
+        _segment.selectedTitleColor = [UIColor blueColor];
+        _segment.normalTitleColor = [UIColor blackColor];
+        _segment.delegate = self;
     }
     return _segment;
+}
+
+- (void)segmentView:(SegmentView *)segmentView DidClickedSegmentButton:(UIButton *)segmentButton{
+//    NSLog(@"%@==",segmentButton.titleLabel.text);
 }
 
 - (void)viewWillLayoutSubviews{
