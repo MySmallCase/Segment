@@ -16,6 +16,7 @@
 		1F4E6F261C03FAD4003FB306 /* SegmentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4E6F251C03FAD4003FB306 /* SegmentTests.m */; };
 		1F4E6F311C03FAD4003FB306 /* SegmentUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4E6F301C03FAD4003FB306 /* SegmentUITests.m */; };
 		1F4E6F441C04102E003FB306 /* SegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4E6F431C04102E003FB306 /* SegmentView.m */; };
+		1F7DD6A21C08064E00AD917B /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7DD6A11C08064E00AD917B /* UIView+Extension.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,8 @@
 		1F4E6F321C03FAD4003FB306 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1F4E6F421C04102E003FB306 /* SegmentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SegmentView.h; sourceTree = "<group>"; };
 		1F4E6F431C04102E003FB306 /* SegmentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SegmentView.m; sourceTree = "<group>"; };
+		1F7DD6A01C08064E00AD917B /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
+		1F7DD6A11C08064E00AD917B /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +152,8 @@
 			children = (
 				1F4E6F421C04102E003FB306 /* SegmentView.h */,
 				1F4E6F431C04102E003FB306 /* SegmentView.m */,
+				1F7DD6A01C08064E00AD917B /* UIView+Extension.h */,
+				1F7DD6A11C08064E00AD917B /* UIView+Extension.m */,
 			);
 			path = Segment;
 			sourceTree = "<group>";
@@ -283,6 +288,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F7DD6A21C08064E00AD917B /* UIView+Extension.m in Sources */,
 				1F4E6F441C04102E003FB306 /* SegmentView.m in Sources */,
 				1F4E6F131C03FAD4003FB306 /* ViewController.m in Sources */,
 				1F4E6F101C03FAD4003FB306 /* AppDelegate.m in Sources */,
@@ -510,6 +516,7 @@
 				1F4E6F371C03FAD4003FB306 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1F4E6F381C03FAD4003FB306 /* Build configuration list for PBXNativeTarget "SegmentTests" */ = {
 			isa = XCConfigurationList;
@@ -518,6 +525,7 @@
 				1F4E6F3A1C03FAD4003FB306 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1F4E6F3B1C03FAD4003FB306 /* Build configuration list for PBXNativeTarget "SegmentUITests" */ = {
 			isa = XCConfigurationList;
@@ -526,6 +534,7 @@
 				1F4E6F3D1C03FAD4003FB306 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

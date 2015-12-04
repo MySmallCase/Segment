@@ -7,6 +7,7 @@
 //
 
 #import "SegmentView.h"
+#import "UIView+Extension.h"
 
 
 #define SINGLE_LINE_WIDTH   (1 / [UIScreen mainScreen].scale)
@@ -23,15 +24,11 @@
 
 @implementation SegmentView
 
-- (instancetype)initWithTitles:(NSArray *)titles
+- (instancetype)init
 {
     self = [super init];
     if (self) {
-        
-        //初始化
-        [self initializeWithTitles:titles];
-        
-        [self addSegmentButton];
+        [self initialize];
     }
     return self;
 }
@@ -39,22 +36,26 @@
 /**
  *  初始化
  */
-- (void)initializeWithTitles:(NSArray *)titles{
+- (void)initialize{
     self.backgroundColor = [UIColor whiteColor];
     _segmentButtons = [[NSMutableArray alloc] init];
     _showBottomView = YES;
-    _titles = titles;
     _selectedIndex = 0;
-    _bottomLineHeight = 10;
+    _bottomLineHeight = 4 * SINGLE_LINE_WIDTH;
     _normalTitleColor = [UIColor blueColor];
     _selectedTitleColor = [UIColor greenColor];
-    _isSameTextWidth = YES;
-    _bottomViewColor = [UIColor greenColor];
+    _isSameTextWidth = NO;
+    _bottomViewColor = [UIColor grayColor];
     _moveViewColor = [UIColor redColor];
 }
 
 
 - (void)addSegmentButton{
+    
+    CGFloat boundsW = self.frame.size.width;
+    CGFloat boundsH = self.frame.size.height;
+    
+    CGFloat segmentW = boundsW / self.titles.count;
     if (self.titles.count > 0) {
         for (int i = 0; i < self.titles.count; i ++) {
             UIButton *segmentButton = [[UIButton alloc] init];
@@ -64,28 +65,41 @@
             segmentButton.titleLabel.font = [UIFont systemFontOfSize:14.0f];
             segmentButton.tag = i + 1;
             [segmentButton addTarget:self action:@selector(segmentButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-            
+            segmentButton.frame = CGRectMake(i * segmentW, 0, segmentW, boundsH - self.bottomLineHeight);
             [self.segmentButtons addObject:segmentButton];
             [self addSubview:segmentButton];
         }
         
         self.bottomView = [[UIView alloc] init];
         self.bottomView.backgroundColor = self.bottomViewColor;
+        self.bottomView.frame = CGRectMake( 0, boundsH - self.bottomLineHeight, boundsW, self.bottomLineHeight);
         [self addSubview:self.bottomView];
         
         self.moveView = [[UIView alloc] init];
         self.moveView.backgroundColor = self.moveViewColor;
         [self addSubview:self.moveView];
+        
+        
+        UIButton *segment = self.segmentButtons[self.selectedIndex];
+        segment.selected = YES;
+        
+        if (self.isSameTextWidth) {
+            CGSize textSize = [self titleSize:segment];
+            self.moveView.frame = CGRectMake(segment.x + (segmentW - textSize.width) * 0.5, self.bottomView.y, textSize.width, self.bottomView.height);
+        }else{
+            self.moveView.frame = CGRectMake(self.selectedIndex * segmentW, self.bottomView.y, segmentW, self.bottomView.height);
+        }
+        
         self.bottomView.hidden = !self.showBottomView;
         
-        UIButton *segement = self.segmentButtons[self.selectedIndex];
-        segement.selected = YES;
+        
     }
 }
 
 
 - (void)segmentButtonClick:(UIButton *)sender{
-    self.selectedIndex = sender.tag - 1;
+    _selectedIndex = sender.tag - 1;
+    
     if (self.delegate && [self.delegate respondsToSelector:@selector(segmentView:DidClickedSegmentButton:)]) {
         [self.delegate segmentView:self DidClickedSegmentButton:sender];
     }
@@ -105,13 +119,12 @@
     CGSize textSize = [self titleSize:sender];
     CGRect moveViewFrame = self.moveView.frame;
     if (self.isSameTextWidth) {
-        moveViewFrame.origin.x = sender.frame.origin.x + (width - textSize.width) * 0.5;
+        moveViewFrame.origin.x = sender.x + (width - textSize.width) * 0.5;
         moveViewFrame.size.width = textSize.width;
     }else{
         moveViewFrame.origin.x = (sender.tag - 1) * width;
         moveViewFrame.size.width = width;
     }
-    moveViewFrame.origin.y = self.frame.size.height - moveViewFrame.size.height;
     return moveViewFrame;
 }
 
@@ -133,77 +146,77 @@
     return [segmentButton.titleLabel.text sizeWithAttributes:attr];
 }
 
-//重载
-- (void)overload{
-    for (UIView *child in self.subviews) {
-        [child removeFromSuperview];
-    }
-    [self.segmentButtons removeAllObjects];
+#pragma mark - getter and setter
+- (void)setTitles:(NSArray *)titles{
+    _titles = titles;
     [self addSegmentButton];
 }
 
-
-#pragma mark - getter and setter
 - (void)setShowBottomView:(BOOL)showBottomView{
     _showBottomView = showBottomView;
-    [self overload];
+    self.bottomView.hidden = !showBottomView;
 }
 
 - (void)setSelectedIndex:(NSInteger)selectedIndex{
     _selectedIndex = selectedIndex;
-    [self overload];
+    
+    for (int i = 0; i < self.titles.count; i ++) {
+        UIButton *segement = self.segmentButtons[i];
+        if (i == selectedIndex) {
+            segement.selected = YES;
+        }else{
+            segement.selected = NO;
+        }
+    }
+    
+    UIButton *segment = self.segmentButtons[self.selectedIndex];
+    segment.selected = YES;
+    
+    CGFloat boundsW = self.frame.size.width;
+    CGFloat segmentW = boundsW / self.titles.count;
+    
+    if (self.isSameTextWidth) {
+        CGSize textSize = [self titleSize:segment];
+        self.moveView.frame = CGRectMake(segment.x + (segmentW - textSize.width) * 0.5, self.bottomView.y, textSize.width, self.bottomView.height);
+    }else{
+        self.moveView.frame = CGRectMake(self.selectedIndex * segmentW, self.bottomView.y, segmentW, self.bottomView.height);
+    }
+    
 }
 
 - (void)setNormalTitleColor:(UIColor *)normalTitleColor{
     _normalTitleColor = normalTitleColor;
-    [self overload];
+    
+    for (int i = 0; i < self.titles.count; i ++) {
+        UIButton *segment = self.segmentButtons[i];
+        [segment setTitleColor:normalTitleColor forState:UIControlStateNormal];
+    }
     
 }
 
 - (void)setSelectedTitleColor:(UIColor *)selectedTitleColor{
     _selectedTitleColor = selectedTitleColor;
-    [self overload];
+    for (int i = 0; i < self.titles.count; i ++) {
+        UIButton *segment = self.segmentButtons[i];
+        [segment setTitleColor:selectedTitleColor forState:UIControlStateSelected];
+    }
 }
 
 - (void)setBottomLineHeight:(NSInteger)bottomLineHeight{
     _bottomLineHeight = bottomLineHeight;
-    [self overload];
+    self.bottomView.height = bottomLineHeight;
+    self.moveView.height = bottomLineHeight;
 }
 
 - (void)setBottomViewColor:(UIColor *)bottomViewColor{
     _bottomViewColor = bottomViewColor;
-    [self overload];
+    self.bottomView.backgroundColor = bottomViewColor;
 }
 
 - (void)setMoveViewColor:(UIColor *)moveViewColor{
     _moveViewColor = moveViewColor;
-    [self overload];
+    self.moveView.backgroundColor = moveViewColor;
 }
 
-#pragma mark - 计算尺寸
-- (void)layoutSubviews{
-    [super layoutSubviews];
-    
-    //计算segmentButton frame
-    CGFloat boundsW = self.bounds.size.width;
-    CGFloat boundsH = self.bounds.size.height;
-    CGFloat segmentButtonW = boundsW / self.titles.count;
-    for (int i = 0; i < self.titles.count; i ++) {
-        UIButton *segmentButton = self.segmentButtons[i];
-        segmentButton.frame = CGRectMake(i * segmentButtonW, 0, segmentButtonW, boundsH - 1);
-    }
-    
-    //计算showBottomView frame
-    self.bottomView.frame = CGRectMake(0, boundsH - SINGLE_LINE_WIDTH * self.bottomLineHeight, boundsW, SINGLE_LINE_WIDTH * self.bottomLineHeight);
-    
-    //计算moveView  frame
-    if (self.isSameTextWidth) {
-        UIButton *segment = self.segmentButtons[self.selectedIndex];
-        CGSize textSize = [self titleSize:segment];
-        self.moveView.frame = CGRectMake(segment.frame.origin.x + (segmentButtonW - textSize.width) * 0.5, boundsH - SINGLE_LINE_WIDTH * self.bottomLineHeight, textSize.width, SINGLE_LINE_WIDTH * self.bottomLineHeight);
-    }else{
-        self.moveView.frame = CGRectMake(self.selectedIndex * segmentButtonW, boundsH - SINGLE_LINE_WIDTH * self.bottomLineHeight, segmentButtonW, SINGLE_LINE_WIDTH * self.bottomLineHeight);
-    }
-}
 
 @end

@@ -22,7 +22,7 @@
 
 @property (nonatomic,assign) NSInteger selectedIndex;
 
-@property (nonatomic,assign) BOOL showBottomView; /**< 时候显示底部分割线*/
+@property (nonatomic,assign) BOOL showBottomView; /**< 是否显示底部分割线 默认显示*/
 
 @property (nonatomic,assign) NSInteger bottomLineHeight; /**< 线高*/
 
@@ -39,7 +39,7 @@
 
 @property (nonatomic,weak) id<SegmentViewDelegate> delegate;
 
-- (instancetype)initWithTitles:(NSArray *)titles;
+//- (instancetype)initWithTitles:(NSArray *)titles;
 
 
 
