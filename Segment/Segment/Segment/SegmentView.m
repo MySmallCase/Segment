@@ -47,6 +47,7 @@
     _isSameTextWidth = NO;
     _bottomViewColor = [UIColor grayColor];
     _moveViewColor = [UIColor redColor];
+    _fontSize = [UIFont systemFontOfSize:14.0f];
 }
 
 
@@ -62,7 +63,7 @@
             [segmentButton setTitle:self.titles[i] forState:UIControlStateNormal];
             [segmentButton setTitleColor:self.normalTitleColor forState:UIControlStateNormal];
             [segmentButton setTitleColor:self.selectedTitleColor forState:UIControlStateSelected];
-            segmentButton.titleLabel.font = [UIFont systemFontOfSize:14.0f];
+            segmentButton.titleLabel.font = self.fontSize;
             segmentButton.tag = i + 1;
             [segmentButton addTarget:self action:@selector(segmentButtonClick:) forControlEvents:UIControlEventTouchUpInside];
             segmentButton.frame = CGRectMake(i * segmentW, 0, segmentW, boundsH - self.bottomLineHeight);
@@ -216,6 +217,14 @@
 - (void)setMoveViewColor:(UIColor *)moveViewColor{
     _moveViewColor = moveViewColor;
     self.moveView.backgroundColor = moveViewColor;
+}
+
+- (void)setFontSize:(UIFont *)fontSize{
+    _fontSize = fontSize;
+    for (int i = 0; i < self.titles.count; i ++) {
+        UIButton *segment = self.segmentButtons[i];
+        segment.titleLabel.font = fontSize;
+    }
 }
 
 

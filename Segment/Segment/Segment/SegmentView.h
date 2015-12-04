@@ -36,13 +36,10 @@
 
 @property (nonatomic,assign) BOOL isSameTextWidth; /**< 移动横线是否和文字长度一样*/
 
+@property (nonatomic,strong) UIFont *fontSize; // 文字大小
+
 
 @property (nonatomic,weak) id<SegmentViewDelegate> delegate;
 
-//- (instancetype)initWithTitles:(NSArray *)titles;
-
-
-
-//- (instancetype)initWithFrame:(CGRect)frame WithTitles:(NSArray *)titles;
 
 @end

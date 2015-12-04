@@ -40,12 +40,13 @@
         _segment.delegate = self;
         _segment.moveViewColor = [UIColor yellowColor];
         _segment.bottomViewColor = [UIColor redColor];
+        _segment.fontSize = [UIFont systemFontOfSize:20.0f];
     }
     return _segment;
 }
 
 - (void)segmentView:(SegmentView *)segmentView DidClickedSegmentButton:(UIButton *)segmentButton{
-//    NSLog(@"%@==",segmentButton.titleLabel.text);
+    NSLog(@"%@==",segmentButton.titleLabel.text);
 }
 
 
